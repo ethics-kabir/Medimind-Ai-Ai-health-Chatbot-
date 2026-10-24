@@ -1,0 +1,215 @@
+[
+  {
+    "id": "paracetamol",
+    "name": "Paracetamol (Acetaminophen)",
+    "generic_name": "Acetaminophen / Paracetamol",
+    "drug_class": "Analgesic & Antipyretic",
+    "common_uses": [
+      "Temporary relief of mild to moderate pain (headaches, muscle aches, toothaches, backaches)",
+      "Reduction of fever associated with common colds, viral infections, or flu"
+    ],
+    "common_side_effects": [
+      "Generally well-tolerated at recommended therapeutic doses",
+      "Rare: Nausea, mild stomach discomfort, skin rash or allergic reactions"
+    ],
+    "important_precautions": [
+      "Do NOT exceed 4,000 mg (4 grams) in 24 hours for healthy adults (often recommended lower at 3,000 mg to prevent liver strain)",
+      "Check labels of all multi-symptom cold/flu medications to avoid accidental double dosing",
+      "Individuals with liver impairment, chronic hepatitis, or alcohol dependency must consult a physician before use",
+      "Keep strictly out of reach of children and use calibrated dosing syringes for pediatric liquid suspensions"
+    ],
+    "known_interactions": [
+      "Alcohol: Significantly increases risk of severe liver toxicity",
+      "Warfarin: Chronic high-dose paracetamol may modestly enhance anticoagulant effect",
+      "Other acetaminophen-containing products (NyQuil, Tylenol PM, Excedrin, etc.)"
+    ],
+    "overdose_warning": "ACUTE LIVER FAILURE: Paracetamol overdose is a medical emergency requiring immediate administration of N-acetylcysteine. Seek emergency care immediately if an overdose is suspected.",
+    "educational_disclaimer": "This monograph is for educational informational purposes only. Do not self-prescribe, alter doses, or discontinue medications without consulting a licensed physician or pharmacist."
+  },
+  {
+    "id": "ibuprofen",
+    "name": "Ibuprofen (Advil / Motrin)",
+    "generic_name": "Ibuprofen",
+    "drug_class": "Nonsteroidal Anti-inflammatory Drug (NSAID)",
+    "common_uses": [
+      "Relief of pain and inflammation from arthritis, sprains, strains, menstrual cramps, dental pain",
+      "Temporary reduction of fever"
+    ],
+    "common_side_effects": [
+      "Stomach upset, heartburn, nausea, abdominal pain",
+      "Dizziness, mild fluid retention, headache"
+    ],
+    "important_precautions": [
+      "Always take with food or milk to minimize gastrointestinal irritation",
+      "Avoid if you have a history of stomach ulcers, gastrointestinal bleeding, or severe kidney disease",
+      "NSAIDs increase the risk of heart attack or stroke, especially with prolonged use or pre-existing cardiac conditions",
+      "Avoid during the third trimester of pregnancy due to risk of premature closure of the fetal ductus arteriosus"
+    ],
+    "known_interactions": [
+      "Blood thinners (Aspirin, Warfarin, Apixaban): Heightened risk of major GI bleeding",
+      "ACE Inhibitors / ARBs / Diuretics: May reduce antihypertensive efficacy and harm renal function",
+      "Corticosteroids: Multiplies risk of peptic ulceration",
+      "Alcohol: Increases gastrointestinal bleeding risks"
+    ],
+    "overdose_warning": "Symptoms of overdose include lethargy, drowsiness, nausea, vomiting, epigastric pain, and metabolic acidosis. Seek urgent emergency care.",
+    "educational_disclaimer": "This monograph is for educational informational purposes only. Do not self-prescribe, alter doses, or discontinue medications without consulting a licensed physician or pharmacist."
+  },
+  {
+    "id": "amoxicillin",
+    "name": "Amoxicillin",
+    "generic_name": "Amoxicillin",
+    "drug_class": "Penicillin Antibiotic (Beta-lactam)",
+    "common_uses": [
+      "Treatment of susceptible bacterial infections: middle ear infections (otitis media), strep throat, bacterial pneumonia, skin infections, urinary tract infections",
+      "Part of combination therapy for Helicobacter pylori eradication"
+    ],
+    "common_side_effects": [
+      "Diarrhea, nausea, vomiting, abdominal cramping",
+      "Mild non-allergic skin rash, oral or vaginal candidiasis (thrush/yeast infection)"
+    ],
+    "important_precautions": [
+      "Antibiotics are COMPLETELY INEFFECTIVE against viral illnesses like the common cold, COVID-19, or influenza",
+      "Complete the entire prescribed course even if symptoms resolve earlier to prevent bacterial resistance",
+      "STRICT CONTRAINDICATION in patients with true penicillin anaphylaxis or severe hypersensitivity",
+      "Seek emergency care immediately if wheezing, facial swelling, or severe blistering rash occurs"
+    ],
+    "known_interactions": [
+      "Methotrexate: Penicillins may decrease clearance and increase methotrexate toxicity",
+      "Probenecid: Increases and prolongs amoxicillin serum concentrations",
+      "Oral contraceptives: May potentially reduce efficacy; secondary contraception is advised by some guidelines"
+    ],
+    "overdose_warning": "Overdose is generally associated with severe gastrointestinal symptoms and crystalluria. Maintain adequate hydration and seek immediate medical evaluation.",
+    "educational_disclaimer": "This is a prescription-only antimicrobial. Never use leftover antibiotics without clinical diagnosis and prescription by a licensed practitioner."
+  },
+  {
+    "id": "metformin",
+    "name": "Metformin",
+    "generic_name": "Metformin Hydrochloride",
+    "drug_class": "Biguanide Antihyperglycemic Agent",
+    "common_uses": [
+      "First-line pharmacological treatment for type 2 diabetes mellitus to improve glycemic control",
+      "Off-label management of polycystic ovary syndrome (PCOS) and prediabetes"
+    ],
+    "common_side_effects": [
+      "Gastrointestinal disturbances: diarrhea, nausea, abdominal discomfort, metallic taste, bloating",
+      "Long-term use may lead to reduced Vitamin B12 absorption"
+    ],
+    "important_precautions": [
+      "Take with meals to diminish gastrointestinal adverse effects; extended-release formulations may improve tolerability",
+      "BOXED WARNING: Lactic acidosis is a rare but life-threatening complication, particularly in severe renal impairment, sepsis, or acute heart failure",
+      "Temporarily discontinue prior to iodinated radiocontrast procedures as directed by your physician",
+      "Routine monitoring of renal function (eGFR) and serum B12 levels is essential"
+    ],
+    "known_interactions": [
+      "Excessive alcohol intake: Strongly enhances risk of lactic acidosis and hypoglycemia",
+      "Iodinated contrast media: Risk of acute renal impairment and subsequent metformin accumulation",
+      "Cimetidine and cationic drugs: May increase systemic metformin exposure"
+    ],
+    "overdose_warning": "Metformin overdose carries a high risk of severe lactic acidosis with hypothermia, hypotension, and somnolence. Requires emergency hemodialysis.",
+    "educational_disclaimer": "Prescription medication. Do not adjust diabetes medication regimens without endocrinology or primary care oversight."
+  },
+  {
+    "id": "cetirizine",
+    "name": "Cetirizine (Zyrtec)",
+    "generic_name": "Cetirizine Hydrochloride",
+    "drug_class": "Second-Generation Antihistamine (H1 Antagonist)",
+    "common_uses": [
+      "Relief of symptoms associated with seasonal and perennial allergic rhinitis (sneezing, runny nose, itchy watery eyes)",
+      "Treatment of uncomplicated skin manifestations of chronic idiopathic urticaria (hives)"
+    ],
+    "common_side_effects": [
+      "Mild drowsiness / somnolence (less common than first-generation antihistamines, but higher than fexofenadine)",
+      "Dry mouth, fatigue, dizziness, headache"
+    ],
+    "important_precautions": [
+      "Caution while operating motor vehicles or machinery until you know how it affects your alertness",
+      "Dose adjustments may be necessary for patients with moderate to severe renal or hepatic impairment",
+      "Avoid concurrent central nervous system depressants"
+    ],
+    "known_interactions": [
+      "Alcohol and sedatives: Additive sedation and psychomotor impairment",
+      "Theophylline: May produce a small decrease in cetirizine clearance"
+    ],
+    "overdose_warning": "Overdose may produce severe somnolence in adults, or agitation and restlessness followed by drowsiness in children. Contact poison control immediately.",
+    "educational_disclaimer": "This monograph is for educational informational purposes only. Consult a healthcare provider if allergy symptoms persist or worsen."
+  },
+  {
+    "id": "omeprazole",
+    "name": "Omeprazole (Prilosec)",
+    "generic_name": "Omeprazole",
+    "drug_class": "Proton Pump Inhibitor (PPI)",
+    "common_uses": [
+      "Treatment of gastroesophageal reflux disease (GERD) and erosive esophagitis",
+      "Healing and prevention of duodenal and gastric ulcers",
+      "Pathological hypersecretory conditions (Zollinger-Ellison syndrome)"
+    ],
+    "common_side_effects": [
+      "Headache, abdominal pain, diarrhea, constipation, nausea, flatulence"
+    ],
+    "important_precautions": [
+      "Take 30 to 60 minutes before the first meal of the day on an empty stomach for maximum acid suppression",
+      "Do not crush or chew delayed-release capsules or tablets",
+      "Long-term use (>1 year) is associated with increased risk of bone fractures, hypomagnesemia, vitamin B12 deficiency, and Clostridioides difficile-associated diarrhea",
+      "Prompt medical evaluation is needed if warning signs such as involuntary weight loss, dysphagia, or vomiting blood occur"
+    ],
+    "known_interactions": [
+      "Clopidogrel (Plavix): Omeprazole inhibits CYP2C19, decreasing clopidogrel's antiplatelet activation",
+      "Ketoconazole, Itraconazole, Iron supplements: Decreased absorption due to increased gastric pH",
+      "Methotrexate: Concomitant PPI use may elevate methotrexate levels"
+    ],
+    "overdose_warning": "Symptoms of overdose include confusion, drowsiness, blurred vision, tachycardia, and diaphoresis. Supportive medical care is indicated.",
+    "educational_disclaimer": "Educational reference only. Persistent acid reflux should be evaluated by a healthcare professional to rule out Barrett's esophagus or other conditions."
+  },
+  {
+    "id": "atorvastatin",
+    "name": "Atorvastatin (Lipitor)",
+    "generic_name": "Atorvastatin Calcium",
+    "drug_class": "HMG-CoA Reductase Inhibitor (Statin)",
+    "common_uses": [
+      "Lowering elevated low-density lipoprotein cholesterol (LDL-C), total cholesterol, and triglycerides",
+      "Primary and secondary cardiovascular risk reduction for myocardial infarction and stroke in high-risk patients"
+    ],
+    "common_side_effects": [
+      "Myalgia (muscle ache or stiffness), arthralgia, diarrhea, dyspepsia",
+      "Mild asymptomatic elevation in liver transaminases, small increase in HbA1c/blood glucose"
+    ],
+    "important_precautions": [
+      "Report unexplained muscle pain, tenderness, or weakness immediately, particularly if accompanied by malaise or dark/tea-colored urine (rhabdomyolysis warning)",
+      "Strictly contraindicated in active liver disease or unexplained persistent elevations in hepatic transaminases",
+      "Contraindicated during pregnancy and breastfeeding"
+    ],
+    "known_interactions": [
+      "Grapefruit juice in large amounts (>1 liter/day): Inhibits CYP3A4, substantially elevating atorvastatin concentrations",
+      "Clarithromycin, Itraconazole, Protease inhibitors: Substantially increase myopathy risk",
+      "Gemfibrozil: Increased risk of severe myopathy/rhabdomyolysis"
+    ],
+    "overdose_warning": "No specific antidote exists. In case of acute overdose, support vital functions and monitor hepatic and CPK enzymes.",
+    "educational_disclaimer": "Educational guide only. Never stop statin therapy abruptly without consulting your cardiologist or prescribing physician."
+  },
+  {
+    "id": "aspirin",
+    "name": "Aspirin (Acetylsalicylic Acid)",
+    "generic_name": "Acetylsalicylic Acid (ASA)",
+    "drug_class": "Salicylate / Antiplatelet / NSAID",
+    "common_uses": [
+      "Secondary cardiovascular prevention (low-dose 81mg 'baby aspirin') for ischemic stroke and myocardial infarction",
+      "Immediate emergency administration during suspected acute myocardial infarction (chewed, unless contraindicated)",
+      "Temporary relief of mild pain and fever (at higher analgesic doses)"
+    ],
+    "common_side_effects": [
+      "Gastric irritation, heartburn, easy bruising, prolonged bleeding time"
+    ],
+    "important_precautions": [
+      "NEVER give aspirin to children or teenagers recovering from viral infections (chickenpox/flu) due to the risk of REYE'S SYNDROME (fatal encephalopathy and liver damage)",
+      "High risk of gastrointestinal ulceration and hemorrhage",
+      "Contraindicated in active bleeding disorders, severe asthma with nasal polyps (aspirin-exacerbated respiratory disease)"
+    ],
+    "known_interactions": [
+      "Other anticoagulants and antiplatelets (Warfarin, Heparin, Clopidogrel): Multiplied hemorrhage risk",
+      "Other NSAIDs (Ibuprofen): May interfere with the cardioprotective antiplatelet effect of low-dose aspirin if taken simultaneously",
+      "Alcohol: Dramatically elevates gastric mucosal bleeding"
+    ],
+    "overdose_warning": "Salicylate toxicity causes tinnitus (ringing in ears), hyperventilation, vomiting, hyperthermia, and profound metabolic acidosis. Seek urgent medical emergency treatment.",
+    "educational_disclaimer": "Do not start daily preventive aspirin therapy without an individualized cardiovascular and bleeding risk discussion with your doctor."
+  }
+]

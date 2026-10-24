@@ -1,0 +1,139 @@
+[
+  {
+    "topic": "fever",
+    "keywords": ["fever", "temperature", "chills", "febrile", "बुखार"],
+    "summary": "Fever is typically the body's natural physiologic defense response to infection (viral or bacterial).",
+    "potential_considerations": [
+      "Common viral upper respiratory infection (cold or influenza)",
+      "Bacterial infections (urinary tract, strep throat, otitis media)",
+      "Post-vaccination immune response",
+      "Gastrointestinal infection"
+    ],
+    "comfort_measures": [
+      "Prioritize oral rehydration with water, oral rehydration solutions (ORS), clear broths, or herbal teas",
+      "Rest adequately and wear lightweight, breathable clothing",
+      "Avoid cold baths or alcohol rubbing (may cause shivering and paradoxically raise core body temperature)",
+      "Over-the-counter antipyretics (e.g. Paracetamol) may provide symptom relief if distressing, according to package instructions"
+    ],
+    "monitoring_signs": [
+      "Fever exceeding 103°F (39.4°C) in adults or lasting longer than 3 consecutive days",
+      "Fever in infants under 3 months of age (this is ALWAYS an urgent medical priority requiring immediate emergency care)",
+      "New rash, difficulty staying awake, persistent vomiting, or inability to keep fluids down"
+    ],
+    "emergency_triggers": [
+      "Stiff neck with severe headache and light sensitivity (meningitis warning)",
+      "Difficulty breathing or chest pain",
+      "Confusion, lethargy, or seizure"
+    ]
+  },
+  {
+    "topic": "cough",
+    "keywords": ["cough", "coughing", "phlegm", "mucus", "खांसी", "कफ"],
+    "summary": "Cough is an essential protective reflex that clears irritants, foreign particles, and secretions from airways.",
+    "potential_considerations": [
+      "Acute viral bronchitis or common cold",
+      "Post-nasal drip from allergic rhinitis or sinus congestion",
+      "Gastroesophageal reflux disease (GERD) causing micro-aspiration",
+      "Asthma or reactive airway disease",
+      "Environmental irritants (smoke, dust, pollution, chemical vapors)"
+    ],
+    "comfort_measures": [
+      "Stay well-hydrated to help thin mucus secretions",
+      "Use warm water gargles or honey (1 teaspoon for individuals over 1 year of age; NEVER give honey to infants under 12 months)",
+      "Utilize a cool-mist humidifier or steam inhalation",
+      "Elevate head slightly during sleep to reduce nighttime post-nasal drip"
+    ],
+    "monitoring_signs": [
+      "Cough lingering beyond 3 weeks (chronic cough evaluation required)",
+      "Yellowish-green thick sputum accompanied by high fever or chills",
+      "Unexplained unintentional weight loss or night sweats"
+    ],
+    "emergency_triggers": [
+      "Coughing up noticeable amounts of blood (hemoptysis)",
+      "Severe shortness of breath or audible wheezing / stridor",
+      "Inability to speak in full sentences without gasping"
+    ]
+  },
+  {
+    "topic": "fatigue",
+    "keywords": ["tired", "fatigue", "exhausted", "lethargic", "low energy", "थकान"],
+    "summary": "Persistent fatigue is a non-specific symptom reflecting lifestyle factors, systemic illness, or physiological strain.",
+    "potential_considerations": [
+      "Sleep deprivation, irregular circadian rhythm, or obstructive sleep apnea (OSA)",
+      "Nutritional deficiencies (Iron deficiency anemia, Vitamin B12, or Vitamin D deficiency)",
+      "Endocrine issues (hypothyroidism, dysregulated blood sugar / prediabetes)",
+      "Post-viral fatigue syndrome or chronic stress / depression / anxiety",
+      "Chronic dehydration or deconditioning"
+    ],
+    "comfort_measures": [
+      "Maintain consistent sleep-wake cycles (7-9 hours of restful sleep)",
+      "Ensure steady water consumption throughout the day",
+      "Incorporate balanced nutrition with protein, complex carbohydrates, and leafy greens",
+      "Engage in gentle daily movement such as walking or stretching"
+    ],
+    "monitoring_signs": [
+      "Fatigue that does not improve after adequate sleep and lasts over 2 weeks",
+      "Unexplained weight changes, cold intolerance, or hair thinning",
+      "Pale skin, brittle nails, or lightheadedness when standing"
+    ],
+    "emergency_triggers": [
+      "Sudden extreme weakness or inability to move a limb",
+      "Chest discomfort or breathlessness on minimal exertion",
+      "Fainting or severe confusion"
+    ]
+  },
+  {
+    "topic": "dehydration",
+    "keywords": ["dehydration", "thirsty", "dry mouth", "dark urine", "निर्जलीकरण", "पानी की कमी"],
+    "summary": "Dehydration happens when your body loses more fluid and electrolytes than you take in.",
+    "potential_considerations": [
+      "Inadequate daily fluid consumption (especially in hot weather)",
+      "Fluid loss from prolonged diarrhea, vomiting, or high fever",
+      "Excessive sweating during vigorous physical activity",
+      "Diuretic medication use or uncontrolled elevated blood sugar"
+    ],
+    "comfort_measures": [
+      "Sip oral rehydration salts (ORS) or electrolyte solutions slowly in small, frequent amounts",
+      "Drink plain water, coconut water, or clear broths",
+      "Rest in a cool, shaded environment",
+      "Avoid caffeinated energy drinks, alcohol, or excessively sugary beverages which worsen fluid balance"
+    ],
+    "monitoring_signs": [
+      "Dry, sticky mouth, sunken eyes, or decreased skin turgor",
+      "Dark amber or brown urine with very low volume",
+      "Persistent dizziness or lightheadedness upon standing up (orthostatic hypotension)"
+    ],
+    "emergency_triggers": [
+      "Inability to keep any fluids down for over 24 hours",
+      "Confusion, delirium, extreme lethargy, or loss of consciousness",
+      "Rapid heart rate, rapid breathing, and cold clammy skin (hypovolemic shock warning)"
+    ]
+  },
+  {
+    "topic": "headache",
+    "keywords": ["headache", "migraine", "head hurts", "सिरदर्द"],
+    "summary": "Headaches can range from common tension-type headaches to migraines or secondary causes.",
+    "potential_considerations": [
+      "Tension headache (stress, muscle contraction in neck/shoulders, eye strain)",
+      "Migraine headache (pulsating, often one-sided, sensitivity to light/sound)",
+      "Sinus pressure or dehydration",
+      "Caffeine withdrawal or lack of sleep"
+    ],
+    "comfort_measures": [
+      "Rest in a quiet, dark, well-ventilated room",
+      "Apply a cool or warm compress to forehead or back of neck",
+      "Drink a glass of water slowly to address potential dehydration",
+      "Gentle neck stretching and reducing screen time"
+    ],
+    "monitoring_signs": [
+      "Headaches that increase in frequency or intensity over weeks",
+      "Headaches that wake you from sleep or worsen with coughing/bending",
+      "Headache associated with jaw pain when chewing in adults over 50"
+    ],
+    "emergency_triggers": [
+      "Sudden, explosive 'thunderclap' headache reaching peak intensity within seconds (worst headache of life)",
+      "Headache accompanied by stiff neck, high fever, or confusion",
+      "Headache with facial droop, arm weakness, numbness, or difficulty speaking"
+    ]
+  }
+]
