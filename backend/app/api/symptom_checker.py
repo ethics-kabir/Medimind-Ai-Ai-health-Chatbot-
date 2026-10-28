@@ -1,9 +1,10 @@
 import json
 import datetime
 import uuid
-from fastapi import APIRouter, Depends, HTTPException
+import hmac
+from fastapi import APIRouter, Depends, Header, HTTPException
 from sqlalchemy.orm import Session
-from typing import List
+from typing import Optional
 
 from app.database.session import get_db
 from app.models.db_models import SymptomCheck
@@ -14,8 +15,20 @@ from app.models.schemas import (
 )
 from app.safety.emergency_detector import EmergencyDetector
 from app.services.demo_ai import DemoMedicalAI
+from app.security.config import history_access_enabled, get_admin_token
 
 router = APIRouter(prefix="/api", tags=["symptom-checker"])
+
+def _enforce_history_access(admin_token: Optional[str]) -> None:
+    if history_access_enabled():
+        return
+    configured_token = get_admin_token()
+    is_allowed = bool(configured_token) and bool(admin_token) and hmac.compare_digest(configured_token, admin_token)
+    if not is_allowed:
+        raise HTTPException(
+            status_code=403,
+            detail="Symptom check history endpoints are disabled for unauthenticated access.",
+        )
 
 @router.post("/symptom-check", response_model=SymptomCheckResponse)
 def perform_symptom_check(request: SymptomCheckRequest, db: Session = Depends(get_db)):
@@ -132,7 +145,11 @@ def perform_symptom_check(request: SymptomCheckRequest, db: Session = Depends(ge
     return response_obj
 
 @router.get("/symptom-checks")
-def get_symptom_checks(db: Session = Depends(get_db)):
+def get_symptom_checks(
+    db: Session = Depends(get_db),
+    x_admin_token: Optional[str] = Header(default=None),
+):
+    _enforce_history_access(x_admin_token)
     records = db.query(SymptomCheck).order_by(SymptomCheck.created_at.desc()).all()
     results = []
     for r in records:
@@ -153,7 +170,12 @@ def get_symptom_checks(db: Session = Depends(get_db)):
     return results
 
 @router.delete("/symptom-checks/{check_id}")
-def delete_symptom_check(check_id: str, db: Session = Depends(get_db)):
+def delete_symptom_check(
+    check_id: str,
+    db: Session = Depends(get_db),
+    x_admin_token: Optional[str] = Header(default=None),
+):
+    _enforce_history_access(x_admin_token)
     record = db.query(SymptomCheck).filter(SymptomCheck.id == check_id).first()
     if not record:
         raise HTTPException(status_code=404, detail="Symptom check not found")
@@ -162,9 +184,12 @@ def delete_symptom_check(check_id: str, db: Session = Depends(get_db)):
     return {"status": "success", "message": f"Symptom check {check_id} deleted."}
 
 @router.delete("/symptom-checks")
-def clear_all_symptom_checks(db: Session = Depends(get_db)):
+def clear_all_symptom_checks(
+    db: Session = Depends(get_db),
+    x_admin_token: Optional[str] = Header(default=None),
+):
+    _enforce_history_access(x_admin_token)
     db.query(SymptomCheck).delete()
     db.commit()
     return {"status": "success", "message": "All symptom checks cleared."}
-
 

@@ -11,4 +11,11 @@ services:
         sync: false
       - key: CORS_ORIGINS
         sync: false
-
+      - key: APP_ENV
+        value: production
+      - key: ENABLE_UNAUTHENTICATED_HISTORY
+        value: "false"
+      - key: MAX_REQUEST_BYTES
+        value: "65536"
+      - key: MEDIMIND_ADMIN_TOKEN
+        sync: false

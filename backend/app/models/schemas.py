@@ -1,4 +1,4 @@
-from typing import List, Optional, Any, Dict
+from typing import List, Optional, Any, Dict, Literal
 from pydantic import BaseModel, Field
 
 class StructuredHealthCard(BaseModel):
@@ -15,8 +15,8 @@ class StructuredHealthCard(BaseModel):
 
 class ChatRequest(BaseModel):
     message: str = Field(..., min_length=1, max_length=2000)
-    conversation_id: Optional[str] = None
-    language: str = Field(default="en")
+    conversation_id: Optional[str] = Field(default=None, max_length=64)
+    language: Literal["en", "hi"] = Field(default="en")
 
 class EmergencyAlert(BaseModel):
     is_emergency: bool = True
@@ -67,11 +67,11 @@ class SymptomCheckRequest(BaseModel):
     duration: str = Field(..., max_length=100)
     severity: int = Field(..., ge=1, le=10)
     age_group: str = Field(..., max_length=50) # Infant, Child, Teen, Adult, Senior
-    associated_symptoms: List[str] = Field(default_factory=list)
-    existing_conditions: List[str] = Field(default_factory=list)
-    current_medications: Optional[str] = None
-    allergies: Optional[str] = None
-    language: str = Field(default="en")
+    associated_symptoms: List[str] = Field(default_factory=list, max_length=25)
+    existing_conditions: List[str] = Field(default_factory=list, max_length=25)
+    current_medications: Optional[str] = Field(default=None, max_length=300)
+    allergies: Optional[str] = Field(default=None, max_length=300)
+    language: Literal["en", "hi"] = Field(default="en")
 
 class SymptomCheckResponse(BaseModel):
     id: str
