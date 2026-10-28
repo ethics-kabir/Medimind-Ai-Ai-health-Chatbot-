@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import text
 from app.database.session import get_db
 from app.services.ai_service import AIService
+from app.security.config import history_access_enabled
 
 router = APIRouter(prefix="/api", tags=["health"])
 logger = logging.getLogger("medimind.health")
@@ -64,6 +65,7 @@ def health_check(db: Session = Depends(get_db)):
         "database": db_status,
         "ai_engine": "Demo Mode (Mock Medical Intelligence)" if is_demo else "Google Gemini API (Active)",
         "mode": "demo" if is_demo else "gemini",
+        "history_access": "enabled" if history_access_enabled() else "restricted",
         "emergency_system": "ACTIVE (Pre-LLM Safety Layer Enabled)"
     }
 

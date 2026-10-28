@@ -1,11 +1,43 @@
-const API_BASE = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
+function resolveApiBase() {
+  const configured = (import.meta.env.VITE_API_URL || '/api').trim();
+  const sanitized = configured.replace(/\/$/, '');
+  if (sanitized.startsWith('/')) return sanitized;
+
+  try {
+    const parsed = new URL(sanitized);
+    if (!['http:', 'https:'].includes(parsed.protocol)) {
+      throw new Error('Unsupported protocol');
+    }
+    if (import.meta.env.PROD && parsed.protocol !== 'https:') {
+      console.warn('VITE_API_URL should use https in production. Falling back to /api.');
+      return '/api';
+    }
+    return sanitized;
+  } catch {
+    console.warn('Invalid VITE_API_URL value. Falling back to /api.');
+    return '/api';
+  }
+}
+
+const API_BASE = resolveApiBase();
+
+function sanitizeErrorMessage(rawMessage) {
+  if (typeof rawMessage !== 'string') return 'Service request failed';
+  const trimmed = rawMessage.trim();
+  if (!trimmed) return 'Service request failed';
+  if (trimmed.length > 220) return 'Service request failed';
+  if (/(traceback|stack|exception|sql|token|key|password)/i.test(trimmed)) {
+    return 'Service request failed';
+  }
+  return trimmed;
+}
 
 async function handleResponse(response) {
   if (!response.ok) {
     let errorDetail = 'Network request failed';
     try {
       const err = await response.json();
-      errorDetail = err.detail || err.message || errorDetail;
+      errorDetail = sanitizeErrorMessage(err.detail || err.message || errorDetail);
     } catch {
       // keep fallback message
     }

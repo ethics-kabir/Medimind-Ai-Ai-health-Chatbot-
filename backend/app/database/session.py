@@ -24,12 +24,22 @@ engine = create_engine(
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
+_tables_initialized = False
+
+def ensure_tables_initialized():
+    global _tables_initialized
+    if _tables_initialized:
+        return
+    # Import models lazily so metadata is fully populated before create_all.
+    import app.models.db_models  # noqa: F401
+    Base.metadata.create_all(bind=engine)
+    _tables_initialized = True
 
 def get_db():
+    ensure_tables_initialized()
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
-
 

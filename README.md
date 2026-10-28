@@ -57,7 +57,7 @@ uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 
 The app starts in demo mode without an API key. To enable Gemini, put your key in `backend/.env` as `GEMINI_API_KEY=...` and restart the API. Never put this key in the frontend or commit it.
 
-The API docs are at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs). The local SQLite file is created at `backend/medimind.db` and is ignored by Git.
+The API docs are at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) in development mode. In production mode (`APP_ENV=production`), docs are disabled by default. The local SQLite file is created at `backend/medimind.db` and is ignored by Git.
 
 ### 2. Start the React app
 
@@ -76,14 +76,14 @@ Open [http://localhost:5173](http://localhost:5173). Vite forwards `/api` calls 
 | `GET` | `/api/health` | API, database, and AI mode status |
 | `GET` | `/api/health-tips` | Static educational tips |
 | `POST` | `/api/chat` | Submit a chat message |
-| `GET` | `/api/conversations` | List saved chat conversations |
-| `GET` | `/api/conversations/{id}` | Load one conversation |
-| `DELETE` | `/api/conversations/{id}` | Delete one conversation |
-| `DELETE` | `/api/conversations` | Clear all saved conversations |
+| `GET` | `/api/conversations` | List saved chat conversations (restricted in production unless explicitly enabled) |
+| `GET` | `/api/conversations/{id}` | Load one conversation (restricted in production unless explicitly enabled) |
+| `DELETE` | `/api/conversations/{id}` | Delete one conversation (restricted in production unless explicitly enabled) |
+| `DELETE` | `/api/conversations` | Clear all saved conversations (restricted in production unless explicitly enabled) |
 | `POST` | `/api/symptom-check` | Submit the guided symptom form |
-| `GET` | `/api/symptom-checks` | List saved symptom checks |
-| `DELETE` | `/api/symptom-checks/{id}` | Delete one symptom check |
-| `DELETE` | `/api/symptom-checks` | Clear all saved symptom checks |
+| `GET` | `/api/symptom-checks` | List saved symptom checks (restricted in production unless explicitly enabled) |
+| `DELETE` | `/api/symptom-checks/{id}` | Delete one symptom check (restricted in production unless explicitly enabled) |
+| `DELETE` | `/api/symptom-checks` | Clear all saved symptom checks (restricted in production unless explicitly enabled) |
 | `GET` | `/api/medications` | List or search the reference library |
 | `GET` | `/api/medications/{name}` | Get a medicine entry |
 
@@ -117,7 +117,10 @@ Push the GitHub repository first. Deploy the API and frontend separately:
 1. Create a PostgreSQL database in Render. SQLite files on a typical hosted web service are temporary and can be lost when the service restarts or is redeployed.
 2. In Render, create a Blueprint from this repository and use the included `render.yaml` (the API service uses `backend/` as its root).
 3. Set `DATABASE_URL` to the PostgreSQL **internal** connection URL. At the initial Blueprint prompt for `CORS_ORIGINS`, enter `http://localhost:5173` temporarily. After the Vercel site exists, change it to the exact site origin, such as `https://your-site.vercel.app` (no trailing slash), and redeploy the API. Add `GEMINI_API_KEY` only in Render if you choose to use Gemini; it is optional.
-4. Once deployed, check `https://YOUR-RENDER-SERVICE.onrender.com/api/health`.
+4. Keep `APP_ENV=production` in hosted environments. This disables public docs (`/docs`) and applies production-safe defaults.
+5. Keep `ENABLE_UNAUTHENTICATED_HISTORY=false` for public deployments unless you intentionally want shared public history. If you must access restricted history endpoints, set `MEDIMIND_ADMIN_TOKEN` and send it as `X-Admin-Token`.
+6. `MAX_REQUEST_BYTES` defaults to `65536` to reject oversized payloads.
+7. Once deployed, check `https://YOUR-RENDER-SERVICE.onrender.com/api/health`.
 
 ### Frontend on Vercel
 
@@ -139,4 +142,14 @@ The website still needs the deployed Render API for chat, symptom checks, medici
 - Emergency rules are a simple keyword demo, not a clinically validated detection system. They can miss emergencies or flag ordinary text.
 - Gemini responses can be incorrect. The optional AI integration is not a substitute for a clinician.
 - There is no authentication or per-user data separation. A shared deployment has shared chat and symptom history; clearing history removes records for everyone.
+- In production mode, unauthenticated history endpoints are disabled by default. This reduces cross-user disclosure risk but does not provide per-user identity or authorization.
 - The sample medication content is for software demonstration only. Verify medical information with a qualified professional and authoritative sources.
+
+## Security maintenance notes
+
+- Keep backend dependencies in `backend/pyproject.toml` and `backend/requirements.txt` aligned to the same versions.
+- Keep frontend dependencies locked with `frontend/pnpm-lock.yaml`.
+- Run checks after updates:
+  - Backend tests: `pytest`
+  - Frontend lint: `pnpm lint`
+  - Frontend build: `pnpm build`

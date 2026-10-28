@@ -72,13 +72,17 @@ class AIService:
     @classmethod
     def get_client(cls):
         api_key = os.getenv("GEMINI_API_KEY")
-        if not api_key or api_key.strip() == "" or api_key == "YOUR_GEMINI_API_KEY_HERE":
+        api_key = (api_key or "").strip()
+        if not api_key or api_key in {"YOUR_GEMINI_API_KEY_HERE", "your-gemini-api-key"}:
             return None
         
         if cls._client is None or cls._api_key != api_key:
             try:
                 from google import genai
-                cls._client = genai.Client(api_key=api_key)
+                cls._client = genai.Client(
+                    api_key=api_key,
+                    http_options={"timeout": 20},
+                )
                 cls._api_key = api_key
             except Exception as e:
                 logger.warning(f"Failed to initialize Google GenAI client: {e}")
@@ -91,22 +95,24 @@ class AIService:
 
     @classmethod
     def process_chat(cls, message: str, language: str = "en", history: Optional[list] = None) -> Dict[str, Any]:
+        safe_message = (message or "").strip()[:2000]
         client = cls.get_client()
         
         # If no client, use Demo Medical AI engine
         if not client:
-            result = DemoMedicalAI.generate_chat_response(message, language=language)
+            result = DemoMedicalAI.generate_chat_response(safe_message, language=language)
             result["mode"] = "demo"
             return result
 
         # Check knowledge base guidelines to ground the response
-        guidelines = KnowledgeRetriever.find_clinical_guidelines(message)
+        guidelines = KnowledgeRetriever.find_clinical_guidelines(safe_message)
         knowledge_context = ""
         if guidelines:
-            knowledge_context = "\n\nVERIFIED CLINICAL KNOWLEDGE GUIDELINES:\n" + json.dumps(guidelines, indent=2)
+            trimmed_guidelines = guidelines[:5]
+            knowledge_context = "\n\nVERIFIED CLINICAL KNOWLEDGE GUIDELINES:\n" + json.dumps(trimmed_guidelines, indent=2)
 
         sys_prompt = SYSTEM_PROMPT_HI if language == "hi" else SYSTEM_PROMPT_EN
-        full_prompt = f"{sys_prompt}\n{knowledge_context}\n\nUSER MESSAGE:\n{message}\n\nProvide your structured JSON response:"
+        full_prompt = f"{sys_prompt}\n{knowledge_context}\n\nUSER MESSAGE:\n{safe_message}\n\nProvide your structured JSON response:"
 
         try:
             # Model selection: gemini-2.5-flash or gemini-1.5-flash
@@ -160,8 +166,8 @@ class AIService:
                 "mode": "gemini"
             }
 
-        except Exception as e:
-            logger.error(f"Gemini API invocation error: {e}. Falling back to Demo Medical AI.", exc_info=True)
-            result = DemoMedicalAI.generate_chat_response(message, language=language)
+        except Exception:
+            logger.warning("Gemini API invocation failed. Falling back to Demo Medical AI.")
+            result = DemoMedicalAI.generate_chat_response(safe_message, language=language)
             result["mode"] = "demo"
             return result

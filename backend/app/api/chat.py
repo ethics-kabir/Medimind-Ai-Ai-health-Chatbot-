@@ -1,6 +1,7 @@
 import json
 import datetime
-from fastapi import APIRouter, Depends, HTTPException, Query
+import hmac
+from fastapi import APIRouter, Depends, Header, HTTPException, Query
 from sqlalchemy.orm import Session
 from typing import List, Optional
 
@@ -16,21 +17,41 @@ from app.models.schemas import (
 )
 from app.safety.emergency_detector import EmergencyDetector
 from app.services.ai_service import AIService
+from app.security.config import history_access_enabled, get_admin_token
 
 router = APIRouter(prefix="/api", tags=["chat"])
 
+def _can_access_history(admin_token: Optional[str]) -> bool:
+    if history_access_enabled():
+        return True
+    configured_token = get_admin_token()
+    return bool(configured_token) and bool(admin_token) and hmac.compare_digest(configured_token, admin_token)
+
+def _enforce_history_access(admin_token: Optional[str]) -> None:
+    if not _can_access_history(admin_token):
+        raise HTTPException(
+            status_code=403,
+            detail="Conversation history endpoints are disabled for unauthenticated access.",
+        )
+
 @router.post("/chat", response_model=ChatResponse)
-def send_chat_message(request: ChatRequest, db: Session = Depends(get_db)):
+def send_chat_message(
+    request: ChatRequest,
+    db: Session = Depends(get_db),
+    x_admin_token: Optional[str] = Header(default=None),
+):
     if not request.message or not request.message.strip():
         raise HTTPException(status_code=400, detail="Message cannot be empty.")
 
+    message_text = request.message.strip()
+
     # 1. Resolve or create conversation
     conv = None
-    if request.conversation_id:
+    if request.conversation_id and _can_access_history(x_admin_token):
         conv = db.query(Conversation).filter(Conversation.id == request.conversation_id).first()
     
     if not conv:
-        initial_title = request.message[:45] + ("..." if len(request.message) > 45 else "")
+        initial_title = message_text[:45] + ("..." if len(message_text) > 45 else "")
         conv = Conversation(
             title=initial_title,
             language=request.language
@@ -40,12 +61,12 @@ def send_chat_message(request: ChatRequest, db: Session = Depends(get_db)):
         db.refresh(conv)
 
     # 2. Safety Layer: Check for Red-Flag / Emergency situation BEFORE contacting AI
-    is_emergency, emergency_alert = EmergencyDetector.evaluate(request.message, request.language)
+    is_emergency, emergency_alert = EmergencyDetector.evaluate(message_text, request.language)
 
     user_msg = ChatMessage(
         conversation_id=conv.id,
         sender="user",
-        content=request.message,
+        content=message_text,
         is_emergency=is_emergency
     )
     db.add(user_msg)
@@ -99,7 +120,7 @@ def send_chat_message(request: ChatRequest, db: Session = Depends(get_db)):
         )
 
     # 3. AI Service or Demo AI processing
-    ai_result = AIService.process_chat(request.message, language=request.language)
+    ai_result = AIService.process_chat(message_text, language=request.language)
     reply_text = ai_result["reply"]
     card_obj: StructuredHealthCard = ai_result["structured_data"]
     mode = ai_result.get("mode", "demo")
@@ -130,8 +151,10 @@ def send_chat_message(request: ChatRequest, db: Session = Depends(get_db)):
 @router.get("/conversations", response_model=List[ConversationSummary])
 def get_conversations(
     search: Optional[str] = Query(None, description="Search term in title"),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    x_admin_token: Optional[str] = Header(default=None),
 ):
+    _enforce_history_access(x_admin_token)
     query = db.query(Conversation)
     if search:
         query = query.filter(Conversation.title.ilike(f"%{search}%"))
@@ -155,7 +178,12 @@ def get_conversations(
     return summaries
 
 @router.get("/conversations/{conversation_id}", response_model=ConversationDetail)
-def get_conversation_detail(conversation_id: str, db: Session = Depends(get_db)):
+def get_conversation_detail(
+    conversation_id: str,
+    db: Session = Depends(get_db),
+    x_admin_token: Optional[str] = Header(default=None),
+):
+    _enforce_history_access(x_admin_token)
     conv = db.query(Conversation).filter(Conversation.id == conversation_id).first()
     if not conv:
         raise HTTPException(status_code=404, detail="Conversation not found")
@@ -191,7 +219,12 @@ def get_conversation_detail(conversation_id: str, db: Session = Depends(get_db))
     )
 
 @router.delete("/conversations/{conversation_id}")
-def delete_conversation(conversation_id: str, db: Session = Depends(get_db)):
+def delete_conversation(
+    conversation_id: str,
+    db: Session = Depends(get_db),
+    x_admin_token: Optional[str] = Header(default=None),
+):
+    _enforce_history_access(x_admin_token)
     conv = db.query(Conversation).filter(Conversation.id == conversation_id).first()
     if not conv:
         raise HTTPException(status_code=404, detail="Conversation not found")
@@ -200,9 +233,12 @@ def delete_conversation(conversation_id: str, db: Session = Depends(get_db)):
     return {"status": "success", "message": f"Conversation {conversation_id} deleted."}
 
 @router.delete("/conversations")
-def clear_all_conversations(db: Session = Depends(get_db)):
+def clear_all_conversations(
+    db: Session = Depends(get_db),
+    x_admin_token: Optional[str] = Header(default=None),
+):
+    _enforce_history_access(x_admin_token)
     db.query(ChatMessage).delete()
     db.query(Conversation).delete()
     db.commit()
     return {"status": "success", "message": "All conversations and messages cleared."}
-
